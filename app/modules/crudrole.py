@@ -55,3 +55,28 @@ def DeleteRol(data):
         return jsonify({"status":"error",
                         "message": "role has been not deleted"})
 
+def Updaterole(data):
+    try:
+        role = Rol.query.get(data["id"])
+        if not role:
+                return jsonify({"status":"error",
+                                "message":"error role not found"}),404
+                
+        if not data.get("name") and not data.get("description"):
+            return jsonify({"status":"error",
+                            "message": "not data given"}),400
+            
+        if data.get("name"):
+            role.name = data["name"]
+        if data.get("description"):
+            role.name = data["description"]
+        db.session.commit()
+        return jsonify({"status":"ok",
+                        "message":"Role updated successfully"}),200
+    except Exception as e:
+        print(e)
+        print(traceback.format_exc())
+        return jsonify({
+            "status":"error",
+            "message":"Server or data base error"
+        }), 500

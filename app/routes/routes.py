@@ -24,6 +24,11 @@ def delete_role():
     data = request.get_json()
     return DeleteRol(data)
 
+@main.route("/updaterole", methods=['POST'])
+def update_role():
+    data = request.get_json()
+    return Updaterole(data)
+
 
 @main.route('/check-all')
 def check_all():
