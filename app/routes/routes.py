@@ -3,6 +3,7 @@ from app import db
 from app.models import *
 from flask import request
 from app.modules.crudrole import *
+from app.modules.crudcategory import *
 
 main = Blueprint('main',__name__)
 
@@ -10,7 +11,7 @@ main = Blueprint('main',__name__)
 def index():
     return render_template("index.html")
 
-@main.route("/createrol", methods = ['POST'])
+@main.route("/createrole", methods = ['POST'])
 def crear_rol():
     datos = request.get_json()
     return CreateRol(datos)
@@ -29,6 +30,24 @@ def update_role():
     data = request.get_json()
     return Updaterole(data)
 
+@main.route('/getcategory',methods=['GET'])
+def get_category():
+    return GetCategory()
+
+@main.route('/createcategory', methods=['POST'])
+def create_category():
+    data = request.get_json()
+    return CreateCategory(data)
+
+@main.route('/updatecategory', methods=['POST'])
+def update_category():
+    data = request.get_json()
+    return UpdateCategory(data)
+
+@main.route('/deletecategory',methods=['POST'])
+def delete_category():
+    data = request.get_json()
+    return DeleteCategory(data)
 
 @main.route('/check-all')
 def check_all():
